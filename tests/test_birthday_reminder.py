@@ -23,3 +23,9 @@ def test_add_multiple_names_update_a_name():
     reminder.add_birthday("Firat Gulmez","1996-08-15")
     reminder.update_name("Amy Brown","Amy Claire Brown")
     assert reminder.database == {"Amy Claire Brown":{'DOB':"1990-07-20",'cardsent':False},"Firat Gulmez":{'DOB':"1996-08-15",'cardsent':False}}
+
+def test_update_birthdate():
+    reminder = BirthdayReminder()
+    reminder.add_birthday("Amy Brown","1990-07-20")
+    reminder.update_birthdate("Amy Brown","1991-07-20")
+    assert reminder.database == {"Amy Brown":{'DOB':"1991-07-20",'cardsent':False}}

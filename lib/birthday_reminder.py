@@ -11,12 +11,8 @@ class BirthdayReminder:
         self.database.pop(old_name)
 
     def update_birthdate(self,name,new_birthdate):
-        #Parameters:
-        #   name: string
-        #   new_birthdate: datetime iso format YYYY-MM-DD
-        #Side Effects:
-        #   changes the value of birthdate to new_birthdate for the dictionary item "name"
-        pass
+        self.database[name]['DOB'] = new_birthdate
+        
 
     def age_and_birthdays_next_30_days(self):
         #Parameters:
