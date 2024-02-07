@@ -17,48 +17,93 @@ I want to be able to update a record by passing in an old and a new name
 As a user
 So I can remember to send birthday cards at the right time
 I want to be able to list friends whose birthdays are coming up soon and to whom I need to send a card
+# what counts as soon?
 
 As a user
 So I can buy age-appropriate birthday cards
 I want to calculate the upcoming ages for friends with birthdays
+# in what way upcoming?
 
 As a user
 So I can keep track of cards sent and to be sent
 I want to be able to mark a birthday card for a year as "done"
 
+
+
 ## 2. Design the Class Interface
 
 _Include the initializer, public properties, and public methods with all parameters, return values, and side-effects._
 
+
+info to store:
+- Name - string 
+- Birthday - date object
+- Has birthday card been sent for this year? - boolian - resetting to zero 
+
+info to update:
+- update - name
+- update - birthday
+- Has birthday card been sent for this year? - boolian
+
+info to return?
+- birthday coming up - list of names of who to send card with their birthdays
+- age coming up - int
+
+Database =
+{name:{birthdate:datetimeobject, cardsent:boolian},
+ name2:{birthdate:datetimeobject2, cardsent:boolian2},}
+
+
 ```python
-# EXAMPLE
 
-class Reminder:
-    # User-facing properties:
-    #   name: string
+class BirthdayReminder:
+    # User-facing properties: none
 
-    def __init__(self, name):
-        # Parameters:
+    def __init__(self):
+        #Parameters: None
+        #side effect: 
+        #   creates a dictionary container
+        pass
+
+    def add_birthday(self,name,birthdate):
+        #Parameters:
         #   name: string
-        # Side effects:
-        #   Sets the name property of the self object
-        pass # No code here yet
+        #   birthdate: iso format YYYY-MM-DD
+        #Side Effects:
+        #   create the cardsent key and sets the value to 0/False 
+        #   adds a dictionary to the initial database
 
-    def remind_me_to(self, task):
-        # Parameters:
-        #   task: string representing a single task
-        # Returns:
-        #   Nothing
-        # Side-effects
-        #   Saves the task to the self object
-        pass # No code here yet
+    def update_name(self,old_name,new_name):
+        #Parameters:
+        #   old_name: string
+        #   new_name: string
+        #Side Effects:
+        #   changes the key value of old_name to new_name
+        
+    def update_birthdate(self,name,new_birthdate):
+        #Parameters:
+        #   name: string
+        #   new_birthdate: datetime iso format YYYY-MM-DD
+        #Side Effects:
+        #   changes the value of birthdate to new_birthdate for the dictionary item "name"
 
-    def remind(self):
-        # Returns:
-        #   A string reminding the user to do the task
-        # Side-effects:
-        #   Throws an exception if no task is set
-        pass # No code here yet
+    def age_and_birthdays_next_30_days(self)
+        #Parameters:
+        #  vibes
+        #Returns:
+        #   List of upcoming Names, Birthdays and Age at next birthday - format "Name Birthday:DD MM Age: upcomingage" excluding cardsent = True
+    
+    def mark_card_send(self,name):
+         #Parameters:
+        #  name: String
+        #Returns:
+        #   nothing
+        # Side effect:
+        # changing the value of cardsent to True
+    
+               
+
+
 ```
 
 ## 3. Create Examples as Tests
@@ -69,27 +114,13 @@ _Make a list of examples of how the class will behave in different situations._
 # EXAMPLE
 
 """
-Given a name and a task
-#remind reminds the user to do the task
+Given a name and a DOB 
+add name, DOB, cardsent:0 in to the Database
 """
-reminder = Reminder("Kay")
-reminder.remind_me_to("Walk the dog")
-reminder.remind() # => "Walk the dog, Kay!"
+reminder = BirthdayReminder()
+reminder.add("Amy Brow","1990-07-20")
+assert reminder.database == {"Amy Brown":{'DOB':"1990-07-20",'cardsent':False}}
 
-"""
-Given a name and no task
-#remind raises an exception
-"""
-reminder = Reminder("Kay")
-reminder.remind() # raises an error with the message "No task set."
-
-"""
-Given a name and an empty task
-#remind still reminds the user to do the task, even though it looks odd
-"""
-reminder = Reminder("Kay")
-reminder.remind_me_to("")
-reminder.remind() # => ", Kay!"
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
